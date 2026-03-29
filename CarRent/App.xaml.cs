@@ -13,5 +13,6 @@ namespace CarRent
     /// </summary>
     public partial class App : Application
     {
+        //re
     }
 }
