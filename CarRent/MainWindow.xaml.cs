@@ -23,6 +23,9 @@ namespace CarRent
         public MainWindow()
         {
             InitializeComponent();
+            //Перенаправляем на страницу авторизации
+            FrameMain.Navigate(new Pages.LoginPage());
+
         }
     }
 }
