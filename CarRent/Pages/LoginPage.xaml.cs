@@ -30,7 +30,21 @@ namespace CarRent.Pages
             string login = LoginBox.Text;
             string password = PasswordBox.Password;
 
-            var user = App.Context.Users.FirstOrDefault(u=> u.Login == login & u.Password == password);
+            var user = App.Context.Users.FirstOrDefault(u=> u.Login == login && u.Password == password);
+            if (user != null) 
+            { 
+                MessageBox.Show("Добро пожаловать," + user.FirstName + "!");
+            }
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль!");
+            }
+
+        }
+
+        private void GuestButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Вы вошли как гость!");
         }
     }
 }
