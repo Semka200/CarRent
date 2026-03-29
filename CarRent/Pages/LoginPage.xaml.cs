@@ -33,7 +33,7 @@ namespace CarRent.Pages
             var user = App.Context.Users.FirstOrDefault(u=> u.Login == login && u.Password == password);
             if (user != null) 
             { 
-                MessageBox.Show("Добро пожаловать," + user.FirstName + "!");
+                MessageBox.Show("Добро пожаловать," + user.FirstName + " !");
             }
             else
             {

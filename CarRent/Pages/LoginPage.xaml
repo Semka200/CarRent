@@ -6,17 +6,17 @@
       xmlns:local="clr-namespace:CarRent.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Авторизация">
+      >
 
     <Grid>
-        <StackPanel>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Авторизация" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Введите логин:" VerticalAlignment="Top"/>
-        <TextBox x:Name="LoginBox"   HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Введите пароль:" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="LoginButton_Click"/>
-        <Button x:Name="GuestButton" Content="Войти как Гость" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="GuestButton_Click"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+            <TextBlock HorizontalAlignment="Center" Text="Авторизация" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock Text="Введите логин:"/>
+            <TextBox x:Name="LoginBox"   Height="35" Margin="0,5,0,15"/>
+        <TextBlock Text="Введите пароль:"/>
+            <PasswordBox x:Name="PasswordBox" Height="35" Margin="0,5,0,20"/>
+            <Button x:Name="LoginButton" Content="Войти" Height="40" Margin="0,0,0,10" Click="LoginButton_Click"/>
+            <Button x:Name="GuestButton" Content="Войти как Гость" Height="40" Click="GuestButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>
