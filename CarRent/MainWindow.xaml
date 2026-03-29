@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Icon="/Sourse/Icon.ico"
+        Title="Аренда" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        WindowState="Maximized"
+        MinWidth="600"
+        MinHeight="360"
+        SizeToContent="Manual" ContentRendered="MainFrame_ContentRendered">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <!--задает цвет-->
+        <Grid Grid.Row="0" Background="#C0C0C0"/>
+        <Grid Grid.Row="2" Background="#C0C0C0"/>
+        <!--добавление текста в шапке-->
+        <DockPanel LastChildFill="False">
+            <TextBlock x:Name="textBlockname" Grid.Row="0" TextWrapping="Wrap" Text="{Binding ElementName=FrameMain,Path=Content.Title}"
+                   DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="10" Width="274"/>
+        </DockPanel>
+        <!--Добавление логатипа-->
+        <Image Source="/Sourse/Icon.png" Width="100" HorizontalAlignment="Left"/>
+        <!--Добавление кнопки назад-->
+        <DockPanel LastChildFill="False">
+            <Button Content="Назад" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Name="BtnBack" Click="BtnBack_Click"/>
+        </DockPanel>
         <Frame x:Name="FrameMain" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
 </Window>
