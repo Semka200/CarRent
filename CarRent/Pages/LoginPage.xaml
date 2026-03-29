@@ -12,11 +12,11 @@
         <StackPanel>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Авторизация" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Введите логин:" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="LoginBox"   HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Введите пароль:" VerticalAlignment="Top"/>
-        <PasswordBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Войти" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
-        <Button Content="Войти как Гость" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100"/>
+        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="LoginButton_Click"/>
+        <Button x:Name="GuestButton" Content="Войти как Гость" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="GuestButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>
