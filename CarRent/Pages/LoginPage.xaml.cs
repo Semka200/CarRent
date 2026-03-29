@@ -24,5 +24,13 @@ namespace CarRent.Pages
         {
             InitializeComponent();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            string login = LoginBox.Text;
+            string password = PasswordBox.Password;
+
+            var user = App.Context.Users.FirstOrDefault(u=> u.Login == login & u.Password == password);
+        }
     }
 }
