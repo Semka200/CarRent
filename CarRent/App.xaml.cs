@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarRent.Entities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,6 +14,7 @@ namespace CarRent
     /// </summary>
     public partial class App : Application
     {
-        //re
+        public static Entities.CarRentEntities Context
+        {  get;} = new Entities.CarRentEntities();
     }
 }
