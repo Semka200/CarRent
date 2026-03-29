@@ -81,7 +81,7 @@
 | FirstName | string | Имя |
 | LastName | string | Фамилия |
 | Login | string | Логин (уникальный) |
-| Password | string | Хэш пароля |
+| Password | string | пароль |
 | Role | string | "User" или "Admin" |
 
 ### Таблица `Cars` (Автомобили)
