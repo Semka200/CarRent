@@ -52,16 +52,14 @@
 
 
                         <StackPanel Orientation="Horizontal">
-                            <!--<Button Content="Редактировать"  Name="Edid" Visibility="{Binding Control}" Click="Edid_Click"  ></Button>-->
-                            <!--<Button Content="Удалить" Name="Del" Visibility="{Binding Control}" Click="Del_Click"></Button>-->
+                            <Button Content="Редактировать"  Name="Edid" Visibility="{Binding Control}" Margin="5" Width="110" ></Button>
+                            <Button Content="Удалить" Name="Del" Visibility="{Binding Control}" Margin="5" Width="60" ></Button>
 
                         </StackPanel>
                     </StackPanel>
-
                 </DockPanel>
-
             </StackPanel>
         </StackPanel>
-
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Забронировать" Name="Rent" Visibility="{Binding Control}" Margin="0,0,100,50" Width="150"></Button>
     </Grid>
 </Page>
