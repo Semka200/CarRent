@@ -24,5 +24,45 @@ namespace CarRent.Pages
         {
             InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            var cars = App.Context.Cars.ToList();
+
+            foreach (var car in cars)
+            {
+                // Карточка — это Border с текстом внутри
+                var card = new Border
+                {
+                    Width = 200,
+                    Height = 250,
+                    Margin = new Thickness(10),
+                    Background = Brushes.LightGray,
+                    CornerRadius = new CornerRadius(8),
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                if (car.Available == true)
+                {
+                    card.Background = Brushes.LightGreen;
+                }
+                else
+                {
+                    card.Background = Brushes.LightCoral;
+                }
+
+                var text = new TextBlock
+                {
+                    Text = car.Brand + " " + car.Model + "\n" + car.Price.ToString("0") + " руб/день",
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(10),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                card.Child = text;
+                CarsPanel.Children.Add(card);
+            }
+        }
     }
 }
