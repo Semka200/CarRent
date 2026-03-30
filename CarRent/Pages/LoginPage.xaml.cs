@@ -32,19 +32,19 @@ namespace CarRent.Pages
 
             var user = App.Context.Users.FirstOrDefault(u=> u.Login == login && u.Password == password);
             if (user != null) 
-            { 
-                MessageBox.Show("Добро пожаловать," + user.FirstName + " !");
+            {
+                NavigationService.Navigate(new Pages.CarsPage());
             }
             else
             {
-                MessageBox.Show("Неверный логин или пароль!");
+                ErrorText.Visibility = Visibility.Visible;
             }
 
         }
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Вы вошли как гость!");
+            NavigationService.Navigate(new Pages.CarsPage());
         }
     }
 }

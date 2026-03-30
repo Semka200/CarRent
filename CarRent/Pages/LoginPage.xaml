@@ -17,6 +17,8 @@
             <PasswordBox x:Name="PasswordBox" Height="35" Margin="0,5,0,20"/>
             <Button x:Name="LoginButton" Content="Войти" Height="40" Margin="0,0,0,10" Click="LoginButton_Click"/>
             <Button x:Name="GuestButton" Content="Войти как Гость" Height="40" Click="GuestButton_Click"/>
+            <TextBlock x:Name="ErrorText" Text="Неверный логин или пароль!" Foreground="Red" HorizontalAlignment="Center" FontSize="16" Margin="0,15,0,0" Visibility="Collapsed"/>
+
         </StackPanel>
     </Grid>
 </Page>
