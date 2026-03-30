@@ -25,14 +25,13 @@
         <Grid Grid.Row="2" Background="#C0C0C0"/>
         <!--добавление текста в шапке-->
         <DockPanel LastChildFill="False">
-            <TextBlock x:Name="textBlockname" Grid.Row="0" TextWrapping="Wrap" Text="{Binding ElementName=FrameMain,Path=Content.Title}"
-                   DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="10" Width="274"/>
+            <TextBlock x:Name="textBlockname" Text="{Binding ElementName=FrameMain,Path=Content.Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"  Width="274" FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
         </DockPanel>
         <!--Добавление логатипа-->
         <Image Source="/Sourse/Icon.png" Width="100" HorizontalAlignment="Left"/>
         <!--Добавление кнопки назад-->
         <DockPanel LastChildFill="False">
-            <Button Content="Назад" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Name="BtnBack" Click="BtnBack_Click"/>
+            <Button Content="Назад" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Name="BtnBack" Click="BtnBack_Click" Height="40" Width="70" Margin="0,0,20,10"/>
         </DockPanel>
         <Frame x:Name="FrameMain" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>

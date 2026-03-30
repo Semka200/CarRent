@@ -72,6 +72,8 @@ namespace CarRent.Pages
                 else
                     card.Background = Brushes.LightCoral;
 
+                string imagePath = System.IO.Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Sourse", car.Brand + ".jpg");
+
                 var panel = new StackPanel
                 {
                     VerticalAlignment = VerticalAlignment.Center,
@@ -100,6 +102,14 @@ namespace CarRent.Pages
                     Foreground = car.Available ? Brushes.DarkGreen : Brushes.DarkRed
                 };
 
+                var image = new Image
+                {
+                    Height = 120,
+                    Stretch = Stretch.UniformToFill,
+                    Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute))
+                };
+
+                panel.Children.Add(image);
                 panel.Children.Add(textName);
                 panel.Children.Add(textPrice);
                 panel.Children.Add(textStatus);
