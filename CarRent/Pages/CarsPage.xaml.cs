@@ -117,6 +117,12 @@ namespace CarRent.Pages
                 card.Child = panel;
                 CarsPanel.Children.Add(card);
 
+                card.Cursor = Cursors.Hand;
+                card.MouseLeftButtonUp += (s, e) =>
+                {
+                    NavigationService.Navigate(new CarDetailWindowPage(car));
+                };
+
             }
 
 

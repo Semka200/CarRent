@@ -24,5 +24,11 @@ namespace CarRent.Pages
         {
             InitializeComponent();
         }
+
+        public CarDetailWindowPage(Entities.Cars car)
+        {
+            InitializeComponent();
+            DataContext = car;
+        }
     }
 }
