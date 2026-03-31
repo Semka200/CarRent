@@ -29,6 +29,30 @@ namespace CarRent.Pages
         {
             InitializeComponent();
             DataContext = car;
+            if (App.CurrentUser == null || App.CurrentUser.Role != "Admin")
+            {
+                Edid.Visibility = Visibility.Collapsed;
+                Del.Visibility = Visibility.Collapsed;
+            }
+            StatusText.Text = car.Available ? "Доступен" : "Занят";
+
+            if (App.CurrentUser == null)
+            {
+                Rent.Visibility = Visibility.Collapsed;
+            }
+
+            if (car.Available == false)
+            {
+                Rent.Visibility = Visibility.Collapsed;
+            }
+
+            // Загружаем фото
+            string imagePath = System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Sourse",
+                car.Brand + ".jpg");
+
+            CarImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
         }
     }
 }

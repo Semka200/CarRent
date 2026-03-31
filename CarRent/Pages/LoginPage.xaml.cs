@@ -33,6 +33,7 @@ namespace CarRent.Pages
             var user = App.Context.Users.FirstOrDefault(u=> u.Login == login && u.Password == password);
             if (user != null) 
             {
+                App.CurrentUser = user;
                 NavigationService.Navigate(new Pages.CarsPage());
             }
             else
@@ -42,8 +43,10 @@ namespace CarRent.Pages
 
         }
 
+
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
+            App.CurrentUser = null;
             NavigationService.Navigate(new Pages.CarsPage());
         }
     }

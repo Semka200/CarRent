@@ -120,7 +120,7 @@ namespace CarRent.Pages
                 card.Cursor = Cursors.Hand;
                 card.MouseLeftButtonUp += (s, e) =>
                 {
-                    NavigationService.Navigate(new CarDetailWindowPage(car));
+                    NavigationService?.Navigate(new CarDetailWindowPage(car));
                 };
 
             }

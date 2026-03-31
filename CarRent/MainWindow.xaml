@@ -10,29 +10,54 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         WindowState="Maximized"
-        MinWidth="600"
-        MinHeight="360"
+        MinWidth="1300"
+        MinHeight="750"
         SizeToContent="Manual" ContentRendered="MainFrame_ContentRendered">
     <Grid>
-        <!--тест-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <!--задает цвет-->
-        <Grid Grid.Row="0" Background="#C0C0C0"/>
-        <Grid Grid.Row="2" Background="#C0C0C0"/>
-        <!--добавление текста в шапке-->
-        <DockPanel LastChildFill="False">
-            <TextBlock x:Name="textBlockname" Text="{Binding ElementName=FrameMain,Path=Content.Title}" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"  Width="274" FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
-        </DockPanel>
-        <!--Добавление логатипа-->
-        <Image Source="/Sourse/Icon.png" Width="100" HorizontalAlignment="Left"/>
-        <!--Добавление кнопки назад-->
-        <DockPanel LastChildFill="False">
-            <Button Content="Назад" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Name="BtnBack" Click="BtnBack_Click" Height="40" Width="70" Margin="0,0,20,10"/>
-        </DockPanel>
+
+        <!-- Шапка -->
+        <Grid Grid.Row="0" Background="#707070">
+            <!-- Логотип -->
+            <Border Width="70" Height="70" CornerRadius="35" 
+        ClipToBounds="True" 
+        Background="#707070"
+        HorizontalAlignment="Left" VerticalAlignment="Center" 
+        Margin="15,0">
+                <Image Source="/Sourse/Icon.png" Stretch="UniformToFill"/>
+            </Border>
+
+            <TextBlock Text="CarRent" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="105,0,0,0" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"/>
+
+            <TextBlock x:Name="textBlockname" 
+                       Text="{Binding ElementName=FrameMain,Path=Content.Title}" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="22" FontWeight="Bold" 
+                       Foreground="White"/>
+            <!--Кнопка -->
+            <Button Content="← Назад" HorizontalAlignment="Right" 
+                    VerticalAlignment="Center"
+                    Name="BtnBack" Click="BtnBack_Click" 
+                    Height="40" Width="90" Margin="0,0,20,0"/>
+        </Grid>
+
+        <!-- Контент -->
         <Frame x:Name="FrameMain" NavigationUIVisibility="Hidden" Grid.Row="1"/>
+
+        <!-- Подвали -->
+        <Grid Grid.Row="2" Background="#707070">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="📍 г. Москва, ул. Автомобильная, 42" 
+                           Foreground="White" FontSize="12" Margin="0,0,30,0"/>
+                <TextBlock Text="📞 +7 (800) 555-35-35" 
+                           Foreground="White" FontSize="12" Margin="0,0,30,0"/>
+                <TextBlock Text="✉ info@carrent.ru" 
+                           Foreground="White" FontSize="12"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

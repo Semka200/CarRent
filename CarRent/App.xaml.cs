@@ -16,5 +16,7 @@ namespace CarRent
     {
         public static Entities.CarRentEntities Context
         {  get;} = new Entities.CarRentEntities();
+
+        public static Entities.Users CurrentUser { get; set; }
     }
 }

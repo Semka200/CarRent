@@ -181,6 +181,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Sourse\Icon.png" />
     <Resource Include="Sourse\Mercedes.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -209,9 +210,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Sourse\Volkswagen.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Sourse\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Sourse\Icon.ico">
