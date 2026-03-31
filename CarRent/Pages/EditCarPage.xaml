@@ -9,6 +9,7 @@
       Title="Редактировать автомобиль">
 
     <Grid Background="#F5F5F5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Border Background="White" CornerRadius="12" Padding="30"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Width="400">
@@ -52,5 +53,6 @@
 
             </StackPanel>
         </Border>
+        </ScrollViewer>
     </Grid>
 </Page>
