@@ -104,6 +104,7 @@ namespace CarRent.Pages
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            _selectedCar.Available = false;
         }
     }
 }
