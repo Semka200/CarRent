@@ -54,12 +54,34 @@ namespace CarRent.Pages
                 "Sourse",
                 car.Brand + ".jpg");
 
-            CarImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+            if (System.IO.File.Exists(imagePath))
+            {
+                CarImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+            }
         }
 
         private void Rent_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new BookingWindowPage(_car));
+        }
+
+        private void Del_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены что хотите удалить этот автомобиль?",
+                                          "Подтверждение",
+                                          MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                App.Context.Cars.Remove(_car);
+                App.Context.SaveChanges();
+                MessageBox.Show("Автомобиль удалён!");
+                NavigationService.GoBack();
+            }
+        }
+
+        private void Edid_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new EditCarPage(_car));
         }
     }
 }

@@ -37,6 +37,11 @@ namespace CarRent.Pages
             bodyTypes.Insert(0, "Все");
             BodyTypeBox.ItemsSource = bodyTypes;
             BodyTypeBox.SelectedIndex = 0;
+
+            if (App.CurrentUser == null || App.CurrentUser.Role != "Admin")
+            {
+                AddCarButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -72,7 +77,10 @@ namespace CarRent.Pages
                 else
                     card.Background = Brushes.LightCoral;
 
-                string imagePath = System.IO.Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Sourse", car.Brand + ".jpg");
+                string imageFile = string.IsNullOrEmpty(car.Image)
+                    ? car.Brand + ".jpg"
+                    : car.Image;
+                string imagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sourse", imageFile);
 
                 var panel = new StackPanel
                 {
@@ -106,7 +114,7 @@ namespace CarRent.Pages
                 {
                     Height = 120,
                     Stretch = Stretch.UniformToFill,
-                    Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute))
+                    Source = System.IO.File.Exists(imagePath) ? new BitmapImage(new Uri(imagePath, UriKind.Absolute)) : null
                 };
 
                 panel.Children.Add(image);
@@ -155,6 +163,11 @@ namespace CarRent.Pages
                 cars = cars.Where(c => c.Available == true).ToList();
 
             LoadCars(cars);
+        }
+
+        private void AddCarButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdminPage());
         }
     }
 }

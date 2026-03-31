@@ -39,7 +39,11 @@
             <CheckBox x:Name="OnlyAvailable" Content="Только доступные" 
               VerticalAlignment="Center" Margin="15,0,0,0"
               Checked="FilterChanged" Unchecked="FilterChanged"/>
-            
+
+            <Button x:Name="AddCarButton" Content="+ Добавить" 
+              Margin="15,0,0,0" Width="120" Height="35"
+              Click="AddCarButton_Click"/>
+
         </StackPanel>
 
         <!-- Карточки машин -->
