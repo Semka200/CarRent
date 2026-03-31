@@ -32,7 +32,7 @@ namespace CarRent.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             // Устанавливаем даты по умолчанию
             StartDate.SelectedDate = DateTime.Today;
             EndDate.SelectedDate = DateTime.Today.AddDays(1);
@@ -42,10 +42,6 @@ namespace CarRent.Pages
             EndDate.DisplayDateStart = DateTime.Today.AddDays(1);
         }
 
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CalculateRentalCost();
-        }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
@@ -105,6 +101,7 @@ namespace CarRent.Pages
                 return;
             }
             _selectedCar.Available = false;
+            NavigationService.Navigate(new ContactDetailsPage(_selectedCar, start, end));
         }
     }
 }
