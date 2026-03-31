@@ -48,11 +48,13 @@ namespace CarRent.Pages
                 Rent.Visibility = Visibility.Collapsed;
             }
 
-            // Загружаем фото
+            string imageFile = string.IsNullOrEmpty(car.Image)
+                ? car.Brand + ".jpg"
+                : car.Image;
             string imagePath = System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Sourse",
-                car.Brand + ".jpg");
+                imageFile);
 
             if (System.IO.File.Exists(imagePath))
             {
