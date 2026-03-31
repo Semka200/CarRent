@@ -25,9 +25,11 @@ namespace CarRent.Pages
             InitializeComponent();
         }
 
+        private Entities.Cars _car;
         public CarDetailWindowPage(Entities.Cars car)
         {
             InitializeComponent();
+            _car = car;
             DataContext = car;
             if (App.CurrentUser == null || App.CurrentUser.Role != "Admin")
             {
@@ -53,6 +55,11 @@ namespace CarRent.Pages
                 car.Brand + ".jpg");
 
             CarImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+        }
+
+        private void Rent_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new BookingWindowPage(_car));
         }
     }
 }
