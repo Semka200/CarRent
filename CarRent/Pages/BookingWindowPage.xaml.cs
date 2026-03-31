@@ -43,7 +43,7 @@ namespace CarRent.Pages
         }
 
 
-        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             CalculateRentalCost();
         }

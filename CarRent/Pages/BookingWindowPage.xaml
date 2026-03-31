@@ -27,13 +27,15 @@
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Дата начала:" 
                    VerticalAlignment="Center" Margin="0,0,10,10"/>
         <DatePicker x:Name="StartDate" Grid.Row="1" Grid.Column="1" 
-                    Margin="0,0,0,10"/>
+                    Margin="0,0,0,10"
+                    SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
         <!-- Дата окончания -->
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Дата окончания:" 
                    VerticalAlignment="Center" Margin="0,0,10,10"/>
         <DatePicker x:Name="EndDate" Grid.Row="2" Grid.Column="1" 
-                    Margin="0,0,0,10"/>
+                    Margin="0,0,0,10"
+                    SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
             <!-- Количество дней -->
@@ -54,11 +56,6 @@
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center" 
                     Margin="0,20,0,0">
-            <Button Content="Рассчитать" 
-                    Click="CalculateButton_Click"
-                    Padding="20,10" 
-                    Margin="0,0,10,0"
-                    Width="100"/>
             <Button Content="Забронировать" 
                     Click="BookButton_Click"
                     Padding="20,10" 
