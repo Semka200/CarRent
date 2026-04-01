@@ -1,6 +1,8 @@
 ﻿using CarRent.Entities;
+using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QRCoder;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace CarRent.Pages
 {
@@ -22,16 +27,47 @@ namespace CarRent.Pages
     /// </summary>
     public partial class ContactDetailsPage : Page
     {
-        private int _carId;
+        private Cars _selectedCar;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private int _rentalId;
 
         public ContactDetailsPage(Cars selectedCar, DateTime startDate, DateTime endDate)
         {
             InitializeComponent();
-            _carId = selectedCar.ID;
+            _selectedCar = selectedCar;
+            _startDate = startDate;
+            _endDate = endDate;
         }
 
+        // Метод для генерации QR-кода прямо в странице
+        private BitmapImage GenerateQRCode(string content, int pixelSize = 10)
+        {
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q))
+            using (QRCode qrCode = new QRCode(qrCodeData))
+            {
+                using (Bitmap bitmap = qrCode.GetGraphic(pixelSize))
+                {
+                    using (MemoryStream memory = new MemoryStream())
+                    {
+                        bitmap.Save(memory, ImageFormat.Png);
+                        memory.Position = 0;
 
-        private void GoToMainPage_Click(object sender, RoutedEventArgs e)
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.StreamSource = memory;
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze();
+
+                        return bitmapImage;
+                    }
+                }
+            }
+        }
+
+        private async void ConfirmBooking_Click(object sender, RoutedEventArgs e)
         {
             // Проверяем заполнение полей
             if (string.IsNullOrWhiteSpace(EmailBox.Text) ||
@@ -50,7 +86,7 @@ namespace CarRent.Pages
                 return;
             }
 
-            // Проверяем корректность телефона (простая проверка)
+            // Проверяем корректность телефона
             if (!IsValidPhone(PhoneBox.Text))
             {
                 MessageBox.Show("Введите корректный номер телефона!\nФормат: +7XXXXXXXXXX или 8XXXXXXXXXX",
@@ -58,16 +94,78 @@ namespace CarRent.Pages
                 return;
             }
 
+            try
+            {
+                // Создаем бронирование
+                var rental = new Rentals
+                {
+                    UserID = App.CurrentUser?.ID,
+                    CarID = _selectedCar.ID,
+                    StartDate = _startDate,
+                    EndDate = _endDate,
+                    TotalPrice = (_endDate - _startDate).Days * _selectedCar.Price,
+                    Status = "Active"
+                };
 
-            App.Context.SaveChanges();
+                App.Context.Rentals.Add(rental);
+                await App.Context.SaveChangesAsync();
 
-            // Показываем сообщение об успехе
-            MessageBox.Show($"Бронирование успешно оформлено!",
-                "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                _rentalId = rental.ID;
 
-            // Переходим на главную страницу
+                // Обновляем статус автомобиля
+                _selectedCar.Available = false;
+                await App.Context.SaveChangesAsync();
+
+                // Формируем информацию для QR-кода
+                int days = (_endDate - _startDate).Days;
+                decimal totalPrice = days * _selectedCar.Price;
+
+                string userName = App.CurrentUser != null ?
+                    $"{App.CurrentUser.FirstName} {App.CurrentUser.LastName}" : "Гость";
+
+                string qrContent = $@"
+АРЕНДА АВТОМОБИЛЯ
+━━━━━━━━━━━━━━━━━━━━
+Номер брони: {_rentalId}
+Автомобиль: {_selectedCar.Brand} {_selectedCar.Model}
+Год выпуска: {_selectedCar.Year}
+Период аренды: {_startDate:dd.MM.yyyy} - {_endDate:dd.MM.yyyy}
+Количество дней: {days}
+Стоимость: {totalPrice:C}
+Арендатор: {userName}
+Email: {EmailBox.Text}
+Телефон: {PhoneBox.Text}
+Дата бронирования: {DateTime.Now:dd.MM.yyyy HH:mm}
+";
+
+                // Генерируем QR-код
+                var qrImage = GenerateQRCode(qrContent);
+                QRCodeImage.Source = qrImage;
+
+                // Показываем информацию о бронировании
+                QRInfoText.Text = $"Номер бронирования: #{_rentalId}\n\n" +
+                                 $"Автомобиль: {_selectedCar.Brand} {_selectedCar.Model}\n" +
+                                 $"Период: {_startDate:dd.MM.yyyy} - {_endDate:dd.MM.yyyy}\n" +
+                                 $"Стоимость: {totalPrice:C}\n\n" +
+                                 $"Покажите этот QR-код при получении автомобиля.";
+
+                // Скрываем форму и показываем QR-код
+                FormPanel.Visibility = Visibility.Collapsed;
+                QRPanel.Visibility = Visibility.Visible;
+
+                MessageBox.Show($"Бронирование успешно создано!\nНомер бронирования: #{_rentalId}",
+                    "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при создании бронирования: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void GoToMainPage_Click(object sender, RoutedEventArgs e)
+        {
             NavigationService.Navigate(new CarsPage());
-            StartTimer();
         }
 
         private bool IsValidEmail(string email)
@@ -87,57 +185,8 @@ namespace CarRent.Pages
         {
             // Убираем все нецифровые символы
             string digits = Regex.Replace(phone, @"[^\d]", "");
-
             // Проверяем длину (10 или 11 цифр)
             return digits.Length == 10 || digits.Length == 11;
-        }
-        private void StartTimer()
-        {
-            // Создаем таймер, который сработает через 20 секунд
-            var timer = new System.Windows.Threading.DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(20);
-            timer.Tick += (s, e) =>
-            {
-                timer.Stop(); // Останавливаем таймер
-                UpdateCarStatus(); // Обновляем статус автомобиля
-            };
-            timer.Start();
-        }
-        private void UpdateCarStatus()
-        {
-            try
-            {
-                // Получаем актуальные данные автомобиля из базы
-                var car = App.Context.Cars.Find(_carId);
-
-                if (car == null)
-                {
-                    // Автомобиль не найден
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        MessageBox.Show($"Ошибка: автомобиль с ID {_carId} не найден!",
-                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    });
-                    return;
-                }
-
-                if (car.Available == false)
-                {
-                    // Меняем статус автомобиля на недоступный
-                    car.Available = true;
-
-                    // Сохраняем изменения
-                    App.Context.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    MessageBox.Show($"Ошибка при подтверждении бронирования: {ex.Message}",
-                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                });
-            }
         }
     }
 }
